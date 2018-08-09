@@ -1204,7 +1204,14 @@
 &firmware {
 	android {
 		fstab {
-			/delete-node/ vendor;
+			vendor {
+				compatible = "android,vendor";
+				dev = "/dev/block/platform/soc/624000.ufshc/by-name/vendor";
+				type = "ext4";
+				mnt_flags = "ro,barrier=1,discard";
+				fsmgr_flags = "wait";
+				status = "ok";
+			};
 		};
 	};
 };
