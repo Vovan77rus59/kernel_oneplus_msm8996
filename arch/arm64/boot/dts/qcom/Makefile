@@ -555,6 +555,11 @@ dtb-$(CONFIG_MACH_SONY_KAGURA)		+= msm8996-v3-pmi8996-tone-kagura-sde_generic.dt
 dtb-$(CONFIG_MACH_SONY_KEYAKI)		+= msm8996-v3.0-pmi8996-tone-keyaki-sde_generic.dtb
 dtb-$(CONFIG_MACH_SONY_KEYAKI)		+= msm8996-v3-pmi8996-tone-keyaki-sde_generic.dtb
 
+ifeq (1,1)
+dtb-$(CONFIG_ARCH_MSM8996) += msm8996-v3-pmi8996-mtp_15801.dtb \
+	msm8996pro-pmi8996-mtp_15811.dtb
+else
+
 # MSM8998 - SDE
 dtb-$(CONFIG_MACH_SONY_LILAC)		+= msm8998-v2-yoshino-lilac-sde_generic.dtb
 dtb-$(CONFIG_MACH_SONY_LILAC)		+= msm8998-v2.1-yoshino-lilac-sde_generic.dtb
@@ -602,6 +607,7 @@ dtb-$(CONFIG_MACH_SONY_BLANC)		+= msm8956-v1.1-loire-blanc_generic.dtb
 dtb-$(CONFIG_MACH_SONY_BLANC)		+= apq8056-v1.1-loire-blanc_windy.dtb
 dtb-$(CONFIG_MACH_SONY_BLANC)		+= msm8956-loire-blanc_generic.dtb
 dtb-$(CONFIG_MACH_SONY_BLANC)		+= apq8056-loire-blanc_windy.dtb
+endif
 endif
 endif
 
