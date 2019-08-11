@@ -110,3 +110,4 @@ obj-$(CONFIG_SENSORS_MMC3416X)		+= mmc3416x.o
 obj-$(CONFIG_SENSORS_MPU6050)		+= mpu6050.o
 obj-$(CONFIG_SENSORS_ET51X)			+= et51x.o
 obj-$(CONFIG_SENSORS_QCOM_HALL)		+= hall_sensor.o
+obj-$(CONFIG_FINGERPRINT_FPC1022) += fpc1020_tee.o
