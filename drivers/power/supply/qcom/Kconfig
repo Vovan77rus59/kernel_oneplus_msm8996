@@ -160,7 +160,17 @@ config QPNP_LINEAR_CHARGER
 	  to userspace via the power supply framework.
 	  The power supply framework is used to communicate battery and
 	  usb properties to userspace and other driver consumers like USB.
+config FG_BQ27541
+	tristate "TI bq27541 fg"
+	depends on I2C
+	help
+	  Say Y here to enable the TI Fuel Gauge driver.
 
+config ONEPLUS_FASTCHG
+	tristate "ONEPLUS FAST CHARGE"
+	depends on I2C
+	help
+	  Say Y here to enable the ONEPLUS FAST CHARGE driver.
 config QPNP_TYPEC
 	tristate "QPNP Type-C driver"
 	depends on MFD_SPMI_PMIC
@@ -188,5 +198,17 @@ config SMB1390_CHARGE_PUMP
 	  Say Y to include support for SMB1390 Charge Pump.
 	  SMB1390 is a div2 charge pump capable of delivering 6A charge current
 	  with very high efficiency.
+
+config FG_BQ27541
+	tristate "TI bq27541 fg"
+	depends on I2C
+	help
+	  Say Y here to enable the TI Fuel Gauge driver.
+
+config ONEPLUS_FASTCHG
+	tristate "ONEPLUS FAST CHARGE"
+	depends on I2C
+	help
+	  Say Y here to enable the ONEPLUS FAST CHARGE driver.
 
 endmenu

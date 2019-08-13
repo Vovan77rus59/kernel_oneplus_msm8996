@@ -15,3 +15,5 @@ obj-$(CONFIG_IDTP9221)		+= idtp9221.o
 obj-$(CONFIG_SMB1390_CHARGE_PUMP)	+= smb1390-charger.o pmic-voter.o
 obj-$(CONFIG_QPNP_VM_BMS) += qpnp-vm-bms.o batterydata-lib.o batterydata-interface.o
 obj-$(CONFIG_QPNP_LINEAR_CHARGER)	+= qpnp-linear-charger.o
+obj-$(CONFIG_FG_BQ27541)	+= bq27541_fuelgauger.o
+obj-$(CONFIG_ONEPLUS_FASTCHG)	+= oneplus_fastcg.o op_dash_adapter.o
