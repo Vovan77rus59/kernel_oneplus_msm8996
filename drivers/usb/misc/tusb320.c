@@ -973,12 +973,16 @@ static struct of_device_id tusb320_match_table[] = {
 #define tusb320_match_table NULL
 #endif
 
+static const struct dev_pm_ops tusb320_pm_ops = {
+    SET_SYSTEM_SLEEP_PM_OPS(tusb320_suspend, tusb320_resume)
+};
 
 static struct i2c_driver tusb320_i2c_driver = {
 	.driver = {
 		.name = "tusb320",
 		.owner = THIS_MODULE,
 		.of_match_table = tusb320_match_table,
+		.pm = &tusb320_pm_ops,
 #ifdef CONFIG_PM
 		.pm = &tusb320_dev_pm_ops,
 #endif

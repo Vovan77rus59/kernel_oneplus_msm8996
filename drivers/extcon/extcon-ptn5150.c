@@ -319,6 +319,10 @@ static const struct i2c_device_id ptn5150_i2c_id[] = {
 };
 MODULE_DEVICE_TABLE(i2c, ptn5150_i2c_id);
 
+static const struct dev_pm_ops ptn5150_pm_ops = {
+    SET_SYSTEM_SLEEP_PM_OPS(ptn5150_suspend, ptn5150_resume)
+};
+
 static struct i2c_driver ptn5150_i2c_driver = {
 	.driver		= {
 		.name	= "ptn5150",
