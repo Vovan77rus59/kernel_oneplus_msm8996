@@ -662,6 +662,15 @@
 	};
 
 	i2c@75b5000 {
+		ptn5150@1d {
+			compatible = "nxp,ptn5150";
+			reg = <0x1d>;
+			int-gpio = <&msmgpio 78 GPIO_ACTIVE_HIGH>;
+			vbus-gpio = <&msmgpio 148 GPIO_ACTIVE_HIGH>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&ptn5150_default>;
+			status = "okay";
+		};
 		cc_logic@01 {
 			compatible = "typec,cclogic";
 			reg = <0x01>;
@@ -683,6 +692,11 @@
 				cc_logic,power-active-high;
 				chip-name = "ti,tusb320";
 				chip-address = <0x60>;
+			};
+			cclogic,chip2 {
+				cc_logic,power-active-high;
+				chip-name = "ptn5150";
+				chip-address = <0x1d>;
 			};
 		};
 
