@@ -10476,7 +10476,6 @@ static int smbchg_probe(struct platform_device *pdev)
 #endif /*CONFIG_FB*/
 	chip->typec_notif.notifier_call = typeC_notifier_callback;
 
-	rc = bc_register_client(&chip->typec_notif);
 	if (rc)
 		pr_err("Unable to register	bc_notifier: %d\n", rc);
 	regsister_notify_usb_enumeration_status(&usb_enumeration);
