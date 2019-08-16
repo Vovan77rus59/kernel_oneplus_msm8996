@@ -662,36 +662,28 @@
 	};
 
 	i2c@75b5000 {
-		fusb301@21 {
-			compatible = "fusb301";
-			reg = <0x21>;
-			fusb301,ID-gpio = <&pmi8994_gpios 6 0>;
-			fusb301,irq-gpio = <&pmi8994_gpios 5 0>;
-			// Underlying clocks used by secure touch
-			clock-names = "iface_clk", "core_clk";
-			clocks = <&clock_gcc clk_gcc_blsp2_ahb_clk>,
-				 <&clock_gcc clk_gcc_blsp2_qup1_i2c_apps_clk>;
-		};
-		tusb320@60 {
-			compatible = "tusb320";
-			reg = <0x60>;
-			tusb320,ID-gpio = <&pmi8994_gpios 6 0>;
-			tusb320,irq-gpio = <&pmi8994_gpios 5 0>;
-			// Underlying clocks used by secure touch
-			clock-names = "iface_clk", "core_clk";
-			clocks = <&clock_gcc clk_gcc_blsp2_ahb_clk>,
-				 <&clock_gcc clk_gcc_blsp2_qup1_i2c_apps_clk>;
-		};
+		cc_logic@01 {
+			compatible = "typec,cclogic";
+			reg = <0x01>;
+			vcc_i2c-supply = <&pm8994_s4>;
+			interrupt-parent = <&tlmm>;
+			interrupts = <1 0x2>;
 
-		ptn5150@1d {
-			compatible = "ptn5150";
-			reg = <0x1d>;
-			ptn5150,ID-gpio = <&pmi8994_gpios 6 0>;
-			ptn5150,irq-gpio = <&pmi8994_gpios 5 0>;
-			// Underlying clocks used by secure touch
-			clock-names = "iface_clk", "core_clk";
-			clocks = <&clock_gcc clk_gcc_blsp2_ahb_clk>,
-				 <&clock_gcc clk_gcc_blsp2_qup1_i2c_apps_clk>;
+			cc_logic,irq-working = <&tlmm 1 0x02>; //for 0x8 low_level interrupt, 0x2 falling_edge
+			cc_logic,irq-plug = <&tlmm 11 0x3>;//for both edge
+
+			cc_logic,power-control = <&tlmm 12 0x00>;
+
+			cc_logic,function-switch-gpio2 = <&tlmm 33 0x00>;
+			cc_logic,i2c-pull-up;
+			pinctrl-names = "cc_active", "cc_sleep";
+			pinctrl-0 = <&cclogic_defaultnone_active &cclogic_defaulthigh_active &cclogic_hold_active>;
+			pinctrl-1 = <&cclogic_defaultnone_suspend &cclogic_defaulthigh_suspend &cclogic_hold_suspend>;
+			cclogic,chip1 {
+				cc_logic,power-active-high;
+				chip-name = "ti,tusb320";
+				chip-address = <0x60>;
+			};
 		};
 
 	};
@@ -1624,6 +1616,69 @@
 				bias-disable;
 				output-high;
 			};
+		};
+	};
+
+	cclogic_defaulthigh_active: cclogic_defaulthigh_active {
+		mux {
+			pins = "gpio1", "gpio11";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio1", "gpio11";
+			drive-strength = <0x6>;
+			bias-pull-up;
+		};
+	};
+	cclogic_defaulthigh_suspend: cclogic_defaulthigh_suspend {
+		mux {
+			pins = "gpio1", "gpio11";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio1", "gpio11";
+			drive-strength = <0x2>;
+			bias-pull-up;
+		};
+	};
+	cclogic_defaultnone_active: cclogic_defaultnone_active {
+		mux {
+			function = "gpio";
+		};
+		config {
+			drive-strength = <6>;
+			bias-disable;
+		};
+	};
+	cclogic_defaultnone_suspend: cclogic_defaultnone_suspend {
+		mux {
+			function = "gpio";
+		};
+		config {
+			drive-strength = <0x2>;
+			bias-disable;
+		};
+	};
+	cclogic_hold_active: cclogic_hold_active {
+		mux {
+			pins = "gpio12";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio12";
+			drive-strength = <0x2>;
+			bias-disable;
+		};
+	};
+	cclogic_hold_suspend: cclogc_hold_suspend {
+		mux {
+			pins = "gpio12";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio12";
+			drive-strength = <0x2>;
+			bias-bus-hold;
 		};
 	};
 };
